@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+// FIX: Use named import for framer-motion to resolve typing issues.
+import { motion } from 'framer-motion';
 
 const pageVariants = {
   initial: {
@@ -24,7 +24,8 @@ const pageTransition = {
 };
 
 const PageTransition = ({ children }: { children: React.ReactNode }) => (
-  <FramerMotion.motion.div
+  // FIX: Replaced FramerMotion.motion.div with motion.div to fix type error.
+  <motion.div
     initial="initial"
     animate="in"
     exit="out"
@@ -32,7 +33,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
     transition={pageTransition}
   >
     {children}
-  </FramerMotion.motion.div>
+  </motion.div>
 );
 
 export default PageTransition;

@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+// FIX: Use named import for framer-motion to resolve typing issues.
+import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
@@ -42,14 +42,16 @@ const SitesPage: React.FC = () => {
           Discover online projects by Hamake D. Arayanai
         </p>
         <h2 className="sr-only">Available Websites</h2>
-        <FramerMotion.motion.div 
+        {/* FIX: Replaced FramerMotion.motion.div with motion.div to fix type error. */}
+        <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           variants={gridVariants}
           initial="hidden"
           animate="visible"
         >
           {sites.map((site) => (
-            <FramerMotion.motion.div key={site.name} variants={itemVariants}>
+            // FIX: Replaced FramerMotion.motion.div with motion.div to fix type error.
+            <motion.div key={site.name} variants={itemVariants}>
              <StyledButton
                 as="a"
                 href={site.href}
@@ -60,9 +62,9 @@ const SitesPage: React.FC = () => {
               >
                 {site.name}
               </StyledButton>
-            </FramerMotion.motion.div>
+            </motion.div>
           ))}
-        </FramerMotion.motion.div>
+        </motion.div>
       </PageContainer>
     </PageTransition>
   );
