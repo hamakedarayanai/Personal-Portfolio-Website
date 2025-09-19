@@ -12,7 +12,9 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
-    "framer-motion": "^12.23.15"
+    "framer-motion": "^12.23.15",
+    "@google/genai": "latest",
+    "react-icons": "latest"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

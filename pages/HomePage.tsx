@@ -1,10 +1,10 @@
 import React from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
+import BioGenerator from '../components/BioGenerator';
 
 const socialLinks = [
   { name: 'Facebook', href: 'https://www.facebook.com/hamakedarayanai/' },
@@ -37,31 +37,26 @@ const HomePage: React.FC = () => {
     <PageTransition>
       <PageContainer>
         <Icon name="profile" />
-        <FramerMotion.motion.h1 
+        <motion.h1 
           className="text-4xl md:text-5xl font-bold text-dark-text mb-2"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           Hamake D. Arayanai
-        </FramerMotion.motion.h1>
-        <FramerMotion.motion.p 
-          className="mb-8 text-lg md:text-xl text-dark-text-muted"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Love me or hate me, but spare me your indifference.
-        </FramerMotion.motion.p>
+        </motion.h1>
+        
+        <BioGenerator />
+        
         <h2 className="sr-only">Social Media Connections</h2>
-        <FramerMotion.motion.ul 
+        <motion.ul 
           className="space-y-4"
           variants={listVariants}
           initial="hidden"
           animate="visible"
         >
           {socialLinks.map((link) => (
-            <FramerMotion.motion.li key={link.name} variants={itemVariants}>
+            <motion.li key={link.name} variants={itemVariants}>
               <StyledButton 
                 as="a" 
                 href={link.href}
@@ -70,9 +65,9 @@ const HomePage: React.FC = () => {
               >
                 {link.name}
               </StyledButton>
-            </FramerMotion.motion.li>
+            </motion.li>
           ))}
-        </FramerMotion.motion.ul>
+        </motion.ul>
       </PageContainer>
     </PageTransition>
   );

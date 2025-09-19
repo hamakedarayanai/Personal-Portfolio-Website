@@ -1,6 +1,5 @@
 import React, { useState, FormEvent } from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
@@ -65,7 +64,7 @@ const WhatsappChatPage: React.FC = () => {
           Instantly connect with WhatsApp using a custom message
         </p>
         <h2 className="sr-only">Contact Form</h2>
-        <FramerMotion.motion.div 
+        <motion.div 
           className="max-w-lg mx-auto p-6 sm:p-8 bg-dark-surface rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,7 +127,7 @@ const WhatsappChatPage: React.FC = () => {
               </div>
             </div>
           </form>
-        </FramerMotion.motion.div>
+        </motion.div>
       </PageContainer>
     </PageTransition>
   );

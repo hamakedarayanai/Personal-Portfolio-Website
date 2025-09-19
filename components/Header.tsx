@@ -1,13 +1,19 @@
-
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to handle potential module resolution issues.
-import * as ReactRouterDOM from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import useScroll from '../hooks/useScroll';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const navLinks = [
   { to: '/', text: 'Home' },
   { to: '/pages', text: 'Pages' },
   { to: '/sites', text: 'Sites' },
+];
+
+const socialLinks = [
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/hamakedarayanai', icon: FaLinkedin },
+    { name: 'X', href: 'https://x.com/hamakedarayanai', icon: FaXTwitter },
+    { name: 'GitHub', href: 'https://github.com/hamakedarayanai', icon: FaGithub },
 ];
 
 const Header: React.FC = () => {
@@ -26,22 +32,37 @@ const Header: React.FC = () => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <ReactRouterDOM.NavLink to="/" className="text-xl font-bold text-dark-text">
+            <NavLink to="/" className="text-xl font-bold text-dark-text">
               Hamake D. Arayanai
-            </ReactRouterDOM.NavLink>
+            </NavLink>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-center space-x-4">
               {navLinks.map((link) => (
-                <ReactRouterDOM.NavLink
+                <NavLink
                   key={link.to}
                   to={link.to}
                   className={baseNavStyle}
                   style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
                 >
                   {link.text}
-                </ReactRouterDOM.NavLink>
+                </NavLink>
               ))}
+              <div className="border-l border-dark-border h-6"></div>
+              <div className="flex items-center space-x-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-dark-text-muted hover:text-primary transition-colors duration-200"
+                    aria-label={`Visit my ${social.name} profile`}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -70,7 +91,7 @@ const Header: React.FC = () => {
         <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
-              <ReactRouterDOM.NavLink
+              <NavLink
                 key={link.to}
                 to={link.to}
                 onClick={() => setIsMenuOpen(false)}
@@ -78,7 +99,23 @@ const Header: React.FC = () => {
                 style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
               >
                 {link.text}
-              </ReactRouterDOM.NavLink>
+              </NavLink>
+            ))}
+          </div>
+          <div className="border-t border-dark-border mt-2 mb-2 px-2 sm:px-3"></div>
+          <div className="px-2 pt-2 pb-3 flex justify-center space-x-6 sm:px-3">
+             {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dark-text-muted hover:text-primary transition-colors duration-200"
+                aria-label={`Visit my ${social.name} profile`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <social.icon className="w-6 h-6" />
+              </a>
             ))}
           </div>
         </div>

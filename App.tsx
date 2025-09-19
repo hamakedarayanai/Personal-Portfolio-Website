@@ -1,7 +1,6 @@
 
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to handle potential module resolution issues.
-import * as ReactRouterDOM from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -12,16 +11,16 @@ import RadioPage from './pages/RadioPage';
 import WhatsappChatPage from './pages/WhatsappChatPage';
 
 const AppRoutes = () => {
-  const location = ReactRouterDOM.useLocation();
+  const location = useLocation();
   return (
     <AnimatePresence mode="wait">
-      <ReactRouterDOM.Routes location={location} key={location.pathname}>
-        <ReactRouterDOM.Route path="/" element={<HomePage />} />
-        <ReactRouterDOM.Route path="/pages" element={<PagesPage />} />
-        <ReactRouterDOM.Route path="/sites" element={<SitesPage />} />
-        <ReactRouterDOM.Route path="/radio" element={<RadioPage />} />
-        <ReactRouterDOM.Route path="/whatsappchatform" element={<WhatsappChatPage />} />
-      </ReactRouterDOM.Routes>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/pages" element={<PagesPage />} />
+        <Route path="/sites" element={<SitesPage />} />
+        <Route path="/radio" element={<RadioPage />} />
+        <Route path="/whatsappchatform" element={<WhatsappChatPage />} />
+      </Routes>
     </AnimatePresence>
   );
 };
@@ -29,7 +28,7 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <ReactRouterDOM.HashRouter>
+    <HashRouter>
       <a href="#main-content" className="sr-only sr-only-focusable z-[999] absolute top-4 left-4 p-3 bg-primary text-dark-text rounded-lg">
         Skip to main content
       </a>
@@ -40,7 +39,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </ReactRouterDOM.HashRouter>
+    </HashRouter>
   );
 }
 

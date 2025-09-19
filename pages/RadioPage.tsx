@@ -1,6 +1,5 @@
 import React, { useState, SyntheticEvent } from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
@@ -46,7 +45,7 @@ const RadioPage: React.FC = () => {
           Listen to Radio Al-Fatah Trangkil Temboro live
         </p>
         <h2 className="sr-only">Radio Player</h2>
-        <FramerMotion.motion.div 
+        <motion.div 
           className="max-w-xl mx-auto p-4 sm:p-6 bg-dark-surface rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -70,7 +69,7 @@ const RadioPage: React.FC = () => {
                 {error}
              </p>
           )}
-        </FramerMotion.motion.div>
+        </motion.div>
       </PageContainer>
     </PageTransition>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
-// FIX: Use namespace import for framer-motion to handle potential module resolution issues with TypeScript.
-import * as FramerMotion from 'framer-motion';
+import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
@@ -32,19 +31,19 @@ const PagesPage: React.FC = () => {
           Discover the different sections and services of our website.
         </p>
         <h2 className="sr-only">Available Pages</h2>
-        <FramerMotion.motion.ul 
+        <motion.ul 
           className="space-y-4"
           variants={listVariants}
           initial="hidden"
           animate="visible"
         >
-          <FramerMotion.motion.li variants={itemVariants}>
+          <motion.li variants={itemVariants}>
             <StyledButton as="Link" to="/radio">Radio Page</StyledButton>
-          </FramerMotion.motion.li>
-          <FramerMotion.motion.li variants={itemVariants}>
+          </motion.li>
+          <motion.li variants={itemVariants}>
             <StyledButton as="Link" to="/whatsappchatform">WhatsApp Chat Form Page</StyledButton>
-          </FramerMotion.motion.li>
-        </FramerMotion.motion.ul>
+          </motion.li>
+        </motion.ul>
       </PageContainer>
     </PageTransition>
   );
