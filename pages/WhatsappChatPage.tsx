@@ -1,9 +1,12 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
+
+// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
+const MotionDiv = motion.div;
 
 const WhatsappChatPage: React.FC = () => {
   const [phone, setPhone] = useState('');
@@ -13,6 +16,34 @@ const WhatsappChatPage: React.FC = () => {
 
   const phoneRegex = /^\+?[1-9]\d{7,14}$/;
   
+  // Real-time validation for phone number
+  useEffect(() => {
+    if (phone) { // If user has started typing
+      if (!phoneRegex.test(phone)) {
+        setErrors(prev => ({...prev, phone: 'Please enter a valid phone number (e.g., +6281234567890).'}));
+      } else {
+        setErrors(prev => ({...prev, phone: undefined}));
+      }
+    } else {
+      // Clear error if the field is empty
+      setErrors(prev => ({...prev, phone: undefined}));
+    }
+  }, [phone]);
+
+  // Real-time validation for message
+  useEffect(() => {
+    if (message) { // if user has started typing
+      if (!message.trim()) {
+        setErrors(prev => ({...prev, message: 'Message cannot consist only of spaces.'}));
+      } else {
+        setErrors(prev => ({...prev, message: undefined}));
+      }
+    } else {
+        // Clear error if the field is empty
+        setErrors(prev => ({...prev, message: undefined}));
+    }
+  }, [message]);
+  
   const validate = (): boolean => {
     const newErrors: { phone?: string; message?: string } = {};
     if (!phoneRegex.test(phone)) {
@@ -21,14 +52,13 @@ const WhatsappChatPage: React.FC = () => {
     if (!message.trim()) {
         newErrors.message = 'Please enter a message.';
     }
-    setErrors(newErrors);
+    setErrors(prev => ({ ...prev, ...newErrors }));
     return Object.keys(newErrors).length === 0;
   };
 
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({});
 
     if (!validate()) {
       return;
@@ -59,13 +89,13 @@ const WhatsappChatPage: React.FC = () => {
     <PageTransition>
       <PageContainer>
         <Icon name="chat" />
-        <h1 className="text-4xl md:text-5xl font-bold text-dark-text mb-2">WhatsApp Chat Form</h1>
-        <p className="mb-8 text-lg md:text-xl text-dark-text-muted">
+        <h1 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text mb-2">WhatsApp Chat Form</h1>
+        <p className="mb-8 text-lg md:text-xl text-light-text-muted dark:text-dark-text-muted">
           Instantly connect with WhatsApp using a custom message
         </p>
         <h2 className="sr-only">Contact Form</h2>
-        <motion.div 
-          className="max-w-lg mx-auto p-6 sm:p-8 bg-dark-surface rounded-lg shadow-md"
+        <MotionDiv 
+          className="max-w-lg mx-auto p-6 sm:p-8 bg-light-surface dark:bg-dark-surface rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -73,7 +103,7 @@ const WhatsappChatPage: React.FC = () => {
           <form onSubmit={handleSubmit} noValidate>
             <div className="space-y-6">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-dark-text text-left mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium text-light-text dark:text-dark-text text-left mb-2">
                   Phone Number
                 </label>
                 <input
@@ -82,7 +112,7 @@ const WhatsappChatPage: React.FC = () => {
                   name="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="block w-full px-4 py-3 bg-dark-surface-elevated border border-dark-border rounded-md shadow-sm placeholder-dark-text-muted focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  className="block w-full px-4 py-3 bg-light-surface-elevated dark:bg-dark-surface-elevated border border-light-border dark:border-dark-border rounded-md shadow-sm placeholder-light-text-muted dark:placeholder-dark-text-muted focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                   placeholder="e.g., +6281234567890"
                   required
                   aria-invalid={!!errors.phone}
@@ -95,7 +125,7 @@ const WhatsappChatPage: React.FC = () => {
                 )}
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-dark-text text-left mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-light-text dark:text-dark-text text-left mb-2">
                   Message
                 </label>
                 <textarea
@@ -104,13 +134,16 @@ const WhatsappChatPage: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="block w-full px-4 py-3 bg-dark-surface-elevated border border-dark-border rounded-md shadow-sm placeholder-dark-text-muted focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                  className="block w-full px-4 py-3 bg-light-surface-elevated dark:bg-dark-surface-elevated border border-light-border dark:border-dark-border rounded-md shadow-sm placeholder-light-text-muted dark:placeholder-dark-text-muted focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                   placeholder="Type your message here..."
                   maxLength={500}
                   required
                   aria-invalid={!!errors.message}
-                  aria-describedby="message-error"
+                  aria-describedby="message-error message-counter"
                 ></textarea>
+                <div id="message-counter" className="text-right text-sm text-light-text-muted dark:text-dark-text-muted mt-1">
+                  {message.length} / 500
+                </div>
                  {errors.message && (
                   <p id="message-error" className="mt-2 text-sm text-red-400 text-left" role="alert">
                     {errors.message}
@@ -127,7 +160,7 @@ const WhatsappChatPage: React.FC = () => {
               </div>
             </div>
           </form>
-        </motion.div>
+        </MotionDiv>
       </PageContainer>
     </PageTransition>
   );

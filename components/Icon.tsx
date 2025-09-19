@@ -1,8 +1,11 @@
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface IconProps {
   name: 'profile' | 'pages' | 'sites' | 'radio' | 'chat';
   className?: string;
+  disableAnimation?: boolean;
 }
 
 const icons = {
@@ -33,12 +36,48 @@ const icons = {
   ),
 };
 
-const Icon: React.FC<IconProps> = ({ name, className }) => {
+const MotionDiv = motion.div;
+
+const iconVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5,
+    y: -20,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+      delay: 0.2, // Delay to animate after page transition
+    },
+  },
+} as const;
+
+const Icon: React.FC<IconProps> = ({ name, className, disableAnimation = false }) => {
   const defaultClassName = "w-16 h-16 mx-auto mb-4 text-primary";
+  const combinedClassName = `${defaultClassName} ${className || ''}`;
+
+  if (disableAnimation) {
+    return (
+      <div className={combinedClassName}>
+        {icons[name]}
+      </div>
+    );
+  }
+  
   return (
-    <div className={`${defaultClassName} ${className || ''}`}>
+    <MotionDiv
+      className={combinedClassName}
+      variants={iconVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {icons[name]}
-    </div>
+    </MotionDiv>
   );
 };
 

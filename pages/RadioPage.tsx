@@ -4,6 +4,9 @@ import PageContainer from '../components/PageContainer';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
 
+// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
+const MotionDiv = motion.div;
+
 const RadioPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
@@ -40,13 +43,13 @@ const RadioPage: React.FC = () => {
     <PageTransition>
       <PageContainer>
         <Icon name="radio" />
-        <h1 className="text-4xl md:text-5xl font-bold text-dark-text mb-2">Streaming Radio</h1>
-        <p className="mb-8 text-lg md:text-xl text-dark-text-muted">
+        <h1 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text mb-2">Streaming Radio</h1>
+        <p className="mb-8 text-lg md:text-xl text-light-text-muted dark:text-dark-text-muted">
           Listen to Radio Al-Fatah Trangkil Temboro live
         </p>
         <h2 className="sr-only">Radio Player</h2>
-        <motion.div 
-          className="max-w-xl mx-auto p-4 sm:p-6 bg-dark-surface rounded-lg shadow-md"
+        <MotionDiv 
+          className="max-w-xl mx-auto p-4 sm:p-6 bg-light-surface dark:bg-dark-surface rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -69,7 +72,7 @@ const RadioPage: React.FC = () => {
                 {error}
              </p>
           )}
-        </motion.div>
+        </MotionDiv>
       </PageContainer>
     </PageTransition>
   );

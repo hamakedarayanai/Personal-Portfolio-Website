@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaGlobe } from 'react-icons/fa';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
@@ -30,25 +31,27 @@ const itemVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
+// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
+const MotionDiv = motion.div;
 
 const SitesPage: React.FC = () => {
   return (
     <PageTransition>
       <PageContainer>
         <Icon name="sites" />
-        <h1 className="text-4xl md:text-5xl font-bold text-dark-text mb-2">Explore Our Sites</h1>
-        <p className="mb-8 text-lg md:text-xl text-dark-text-muted">
+        <h1 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text mb-2">Explore Our Sites</h1>
+        <p className="mb-8 text-lg md:text-xl text-light-text-muted dark:text-dark-text-muted">
           Discover online projects by Hamake D. Arayanai
         </p>
         <h2 className="sr-only">Available Websites</h2>
-        <motion.div 
+        <MotionDiv 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           variants={gridVariants}
           initial="hidden"
           animate="visible"
         >
           {sites.map((site) => (
-            <motion.div key={site.name} variants={itemVariants}>
+            <MotionDiv key={site.name} variants={itemVariants}>
              <StyledButton
                 as="a"
                 href={site.href}
@@ -57,11 +60,12 @@ const SitesPage: React.FC = () => {
                 aria-label={`Visit ${site.name} website`}
                 className="w-full"
               >
-                {site.name}
+                <FaGlobe aria-hidden="true" className="w-5 h-5" />
+                <span>{site.name}</span>
               </StyledButton>
-            </motion.div>
+            </MotionDiv>
           ))}
-        </motion.div>
+        </MotionDiv>
       </PageContainer>
     </PageTransition>
   );
