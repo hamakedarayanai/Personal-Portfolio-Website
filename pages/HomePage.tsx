@@ -1,18 +1,20 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin, FaTiktok, FaGithub } from 'react-icons/fa';
 import PageContainer from '../components/PageContainer';
 import StyledButton from '../components/StyledButton';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
 
 const socialLinks = [
-  { name: 'Facebook', href: 'https://www.facebook.com/hamakedarayanai/' },
-  { name: 'X', href: 'https://x.com/hamakedarayanai' },
-  { name: 'Instagram', href: 'https://www.instagram.com/hamakedarayanai/' },
-  { name: 'YouTube', href: 'https://www.youtube.com/@hamakedarayanai' },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/hamakedarayanai' },
-  { name: 'TikTok', href: 'https://www.tiktok.com/@hamakedarayanai' },
+  { name: 'Facebook', href: 'https://www.facebook.com/hamakedarayanai/', icon: <FaFacebook aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'X', href: 'https://x.com/hamakedarayanai', icon: <FaTwitter aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'Instagram', href: 'https://www.instagram.com/hamakedarayanai/', icon: <FaInstagram aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'YouTube', href: 'https://www.youtube.com/@hamakedarayanai', icon: <FaYoutube aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/hamakedarayanai', icon: <FaLinkedin aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'GitHub', href: 'https://github.com/hamakedarayanai', icon: <FaGithub aria-hidden="true" className="w-5 h-5" /> },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@hamakedarayanai', icon: <FaTiktok aria-hidden="true" className="w-5 h-5" /> },
 ];
 
 const listVariants = {
@@ -91,7 +93,8 @@ const HomePage: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {link.name}
+                {link.icon}
+                <span>{link.name}</span>
               </StyledButton>
             </MotionLi>
           ))}
