@@ -36,8 +36,6 @@ const icons = {
   ),
 };
 
-const MotionDiv = motion.div;
-
 const iconVariants = {
   hidden: {
     opacity: 0,
@@ -69,15 +67,16 @@ const Icon: React.FC<IconProps> = ({ name, className, disableAnimation = false }
     );
   }
   
+  // FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors.
   return (
-    <MotionDiv
+    <motion.div
       className={combinedClassName}
       variants={iconVariants}
       initial="hidden"
       animate="visible"
     >
       {icons[name]}
-    </MotionDiv>
+    </motion.div>
   );
 };
 

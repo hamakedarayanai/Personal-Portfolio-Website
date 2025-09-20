@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGlobe } from 'react-icons/fa';
@@ -13,6 +14,14 @@ const sites = [
     { name: 'InstaCaption AI', href: 'https://ica.hamakedarayanai.my.id/' },
     { name: 'Video Detailer AI', href: 'https://vda.hamakedarayanai.my.id/' },
     { name: 'InstaVid Text Generator', href: 'https://ivtg.hamakedarayanai.my.id/' },
+    { name: 'Personal Portfolio Website', href: 'https://ppw.hamakedarayanai.my.id/' },
+    { name: 'Gemini Image-to-Image Studio', href: 'https://gitis.hamakedarayanai.my.id/' },
+    { name: 'Image Style Transfer AI', href: 'https://ista.hamakedarayanai.my.id/' },
+    { name: 'Gemini Image Fusion', href: 'https://gif.hamakedarayanai.my.id/' },
+    { name: 'Gemini Image Weaver', href: 'https://giw.hamakedarayanai.my.id/' },
+    { name: 'AI Music Generator', href: 'https://amg.hamakedarayanai.my.id/' },
+    { name: 'Creative Director AI', href: 'https://cda.hamakedarayanai.my.id/' },
+    { name: 'Gemini Insight Engine', href: 'https://gie.hamakedarayanai.my.id/' },
 ];
 
 const gridVariants = {
@@ -31,9 +40,6 @@ const itemVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
-// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
-const MotionDiv = motion.div;
-
 const SitesPage: React.FC = () => {
   return (
     <PageTransition>
@@ -44,14 +50,16 @@ const SitesPage: React.FC = () => {
           Discover online projects by Hamake D. Arayanai
         </p>
         <h2 className="sr-only">Available Websites</h2>
-        <MotionDiv 
+        {/* FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors. */}
+        <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           variants={gridVariants}
           initial="hidden"
           animate="visible"
         >
           {sites.map((site) => (
-            <MotionDiv key={site.name} variants={itemVariants}>
+            // FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors.
+            <motion.div key={site.name} variants={itemVariants}>
              <StyledButton
                 as="a"
                 href={site.href}
@@ -63,9 +71,9 @@ const SitesPage: React.FC = () => {
                 <FaGlobe aria-hidden="true" className="w-5 h-5" />
                 <span>{site.name}</span>
               </StyledButton>
-            </MotionDiv>
+            </motion.div>
           ))}
-        </MotionDiv>
+        </motion.div>
       </PageContainer>
     </PageTransition>
   );

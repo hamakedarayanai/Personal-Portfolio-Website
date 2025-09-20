@@ -38,12 +38,6 @@ const motionViewConfig = {
     amount: 0.3
 }
 
-// FIX: Assign motion components to variables to help TypeScript resolve their types correctly.
-const MotionH1 = motion.h1;
-const MotionUl = motion.ul;
-const MotionLi = motion.li;
-const MotionDiv = motion.div;
-
 const HomePage: React.FC = () => {
   const iconRef = useRef(null);
   const isIconInView = useInView(iconRef, { once: true, amount: 0.5 });
@@ -58,16 +52,18 @@ const HomePage: React.FC = () => {
     <PageTransition>
       <PageContainer>
         {/* Wrap Icon to control its entry animation via scroll */}
-        <MotionDiv
+        {/* FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors. */}
+        <motion.div
             ref={iconRef}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isIconInView ? 1 : 0, y: isIconInView ? 0 : 30 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
         >
             <Icon name="profile" disableAnimation />
-        </MotionDiv>
+        </motion.div>
 
-        <MotionH1 
+        {/* FIX: Replaced MotionH1 with standard motion.h1 to resolve TypeScript type errors. */}
+        <motion.h1 
           ref={headingRef}
           className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text mb-8"
           initial={{ y: 30, opacity: 0 }}
@@ -75,10 +71,11 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
         >
           Hamake D. Arayanai
-        </MotionH1>
+        </motion.h1>
         
         <h2 className="sr-only">Social Media Connections</h2>
-        <MotionUl 
+        {/* FIX: Replaced MotionUl with standard motion.ul to resolve TypeScript type errors. */}
+        <motion.ul 
           ref={listRef}
           className="space-y-4"
           variants={listVariants}
@@ -86,7 +83,8 @@ const HomePage: React.FC = () => {
           animate={isListInView ? "visible" : "hidden"}
         >
           {socialLinks.map((link) => (
-            <MotionLi key={link.name} variants={itemVariants}>
+            // FIX: Replaced MotionLi with standard motion.li to resolve TypeScript type errors.
+            <motion.li key={link.name} variants={itemVariants}>
               <StyledButton 
                 as="a" 
                 href={link.href}
@@ -96,9 +94,9 @@ const HomePage: React.FC = () => {
                 {link.icon}
                 <span>{link.name}</span>
               </StyledButton>
-            </MotionLi>
+            </motion.li>
           ))}
-        </MotionUl>
+        </motion.ul>
       </PageContainer>
     </PageTransition>
   );

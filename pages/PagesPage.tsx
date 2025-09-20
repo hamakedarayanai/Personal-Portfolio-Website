@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaBroadcastTower, FaWhatsapp } from 'react-icons/fa';
@@ -22,10 +23,6 @@ const itemVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
-// FIX: Assign motion components to variables to help TypeScript resolve their types correctly.
-const MotionUl = motion.ul;
-const MotionLi = motion.li;
-
 const PagesPage: React.FC = () => {
   return (
     <PageTransition>
@@ -36,25 +33,28 @@ const PagesPage: React.FC = () => {
           Discover the different sections and services of our website.
         </p>
         <h2 className="sr-only">Available Pages</h2>
-        <MotionUl 
+        {/* FIX: Replaced MotionUl with standard motion.ul to resolve TypeScript type errors. */}
+        <motion.ul 
           className="space-y-4"
           variants={listVariants}
           initial="hidden"
           animate="visible"
         >
-          <MotionLi variants={itemVariants}>
+          {/* FIX: Replaced MotionLi with standard motion.li to resolve TypeScript type errors. */}
+          <motion.li variants={itemVariants}>
             <StyledButton as="Link" to="/radio">
               <FaBroadcastTower aria-hidden="true" className="w-5 h-5" />
               <span>Radio Page</span>
             </StyledButton>
-          </MotionLi>
-          <MotionLi variants={itemVariants}>
+          </motion.li>
+          {/* FIX: Replaced MotionLi with standard motion.li to resolve TypeScript type errors. */}
+          <motion.li variants={itemVariants}>
             <StyledButton as="Link" to="/whatsappchatform">
               <FaWhatsapp aria-hidden="true" className="w-5 h-5" />
               <span>WhatsApp Chat Form Page</span>
             </StyledButton>
-          </MotionLi>
-        </MotionUl>
+          </motion.li>
+        </motion.ul>
       </PageContainer>
     </PageTransition>
   );

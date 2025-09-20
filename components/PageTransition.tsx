@@ -1,3 +1,4 @@
+
 import React from 'react';
 // FIX: Import the Transition type from framer-motion.
 // FIX: Removed `Transition` import as it was causing a build error.
@@ -25,11 +26,9 @@ const pageTransition = {
   duration: 0.4,
 } as const;
 
-// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
-const MotionDiv = motion.div;
-
 const PageTransition = ({ children }: { children: React.ReactNode }) => (
-  <MotionDiv
+  // FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors.
+  <motion.div
     initial="initial"
     animate="in"
     exit="out"
@@ -37,7 +36,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
     transition={pageTransition}
   >
     {children}
-  </MotionDiv>
+  </motion.div>
 );
 
 export default PageTransition;

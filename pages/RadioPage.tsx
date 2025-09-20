@@ -1,11 +1,9 @@
+
 import React, { useState, SyntheticEvent } from 'react';
 import { motion } from 'framer-motion';
 import PageContainer from '../components/PageContainer';
 import Icon from '../components/Icon';
 import PageTransition from '../components/PageTransition';
-
-// FIX: Assign motion component to a variable to help TypeScript resolve its type correctly.
-const MotionDiv = motion.div;
 
 const RadioPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +46,8 @@ const RadioPage: React.FC = () => {
           Listen to Radio Al-Fatah Trangkil Temboro live
         </p>
         <h2 className="sr-only">Radio Player</h2>
-        <MotionDiv 
+        {/* FIX: Replaced MotionDiv with standard motion.div to resolve TypeScript type errors. */}
+        <motion.div 
           className="max-w-xl mx-auto p-4 sm:p-6 bg-light-surface dark:bg-dark-surface rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +71,7 @@ const RadioPage: React.FC = () => {
                 {error}
              </p>
           )}
-        </MotionDiv>
+        </motion.div>
       </PageContainer>
     </PageTransition>
   );
